@@ -5,9 +5,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,12 +31,22 @@ import javax.net.ssl.HttpsURLConnection;
 public class MainActivity extends FragmentActivity implements DownloadCallback {
 private boolean downloading = false;
 private NetworkFragment networkFragment;
+ImageView imageview;
+Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        InputStream inputStream = null;
+
+        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+        ImageView imageView = (ImageView) findViewById(R.id.image_view);
+        imageView.setImageBitmap(bitmap);
+
+        btn = (Button) findViewById(R.id.btnok);
+     //   btn.setOnClickListener();
 
         networkFragment = NetworkFragment.getInstance(getSupportFragmentManager(), "https://www.google.com");
         }
@@ -88,7 +104,12 @@ private void startDownload() {
     }
 
 
-
+    public void btnok(View view) {
+        
+        
+        startDownload();
+        Toast.makeText(this, "se dio click en el boton", Toast.LENGTH_SHORT).show();
+    }
 
 
 }
